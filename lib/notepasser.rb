@@ -3,8 +3,6 @@ require "notepasser/init_db"
 require "camping"
 require "pry"
 
-#IP: 10.0.0.84
-
 Camping.goes :Notepasser
 
 module Notepasser
@@ -20,18 +18,24 @@ module Notepasser::Models
 end
 
 module Notepasser::Controllers
+  class Index < R '/'
+    def get
+    "Welcome to NotePasser"
+    end
+  end 
+
   class UserId < R '/users'
     def get(id)
       user = Notepasser::Models::Users.find(id)
       user.to_json
     end
 
-    def put
+    def put(id)
       new_user = Notepasser::Models::Users.create(id)
       new_user.to_json
     end
 
-    def delete
+    def delete(id)
       delete_user = Notepasser::Models::Users.find(id)
       delete_user.destroy
     end
@@ -58,13 +62,13 @@ module Notepasser::Controllers
     end
 
     def put
+      
     end
 
     def delete
     end
   end
 end
-
 
 
 
